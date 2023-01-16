@@ -1,6 +1,9 @@
 {
 	"name": "sveltekit-forms",
 	"version": "1.0.3",
+	"description": "Sveltekit Form Actions Wrapper",
+	"author": "fabriziotognetto <info@quantos.it>",
+	"repository": "github:ftognetto/sveltekit-forms",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-kit sync && svelte-package",
