@@ -44,6 +44,6 @@ export const joiBooleanRequired = joiBoolean.required();
 export const joiBooleanOptional = joiBoolean.allow(null).empty(null);
 
 // Email
-export const joiEmail = Joi.string().email();
+export const joiEmail = Joi.string().email({ tlds: { allow: false } });
 export const joiEmailRequired = joiEmail.required();
 export const joiEmailOptional = joiEmail.empty(null);
