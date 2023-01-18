@@ -1,5 +1,6 @@
 import type Joi from 'joi';
 import type { AnySchema } from 'joi';
+import { joiItMessages } from './joi_it_messages';
 
 export const validateForm = async (
 	data: Record<string, any>,
@@ -12,6 +13,8 @@ export const validateForm = async (
 	try {
 		if (options?.language) {
 			schema = schema.messages(options.language);
+		} else {
+			schema = schema.messages(joiItMessages);
 		}
 		await schema.validateAsync(data, {
 			abortEarly: false,
