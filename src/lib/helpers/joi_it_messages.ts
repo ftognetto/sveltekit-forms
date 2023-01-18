@@ -5,7 +5,7 @@ export const joiItMessages: Joi.LanguageMessages = {
 	'alternatives.any': '{{#label}} does not match any of the allowed types',
 	'alternatives.match': '{{#label}} does not match any of the allowed types',
 	'alternatives.one': '{{#label}} matches more than one allowed type',
-	'alternatives.types': '{{#label}} must be one of {{#types}}',
+	'alternatives.types': '{{#label}} deve essere uno dei seguenti tipi: {{#types}}',
 	'any.custom': '{{#label}} failed custom validation because {{#error.message}}',
 	'any.default': '{{#label}} threw an error when running default method',
 	'any.failover': '{{#label}} threw an error when running failover method',
@@ -131,5 +131,5 @@ export const joiItMessages: Joi.LanguageMessages = {
 	'string.uriRelativeOnly': '{{#label}} must be a valid relative uri',
 	'string.uppercase': '{{#label}} must only contain uppercase characters',
 	'symbol.base': '{{#label}} must be a symbol',
-	'symbol.map': '{{#label}} must be one of {{#map}}'
+	'symbol.map': '{{#label}} deve essere uno dei seguenti tipi: {{#map}}'
 };

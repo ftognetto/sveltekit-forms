@@ -9,8 +9,9 @@ export const joiStringOptional = joiString.empty(null);
 export const joiZip = Joi.string()
 	.regex(/^(\s*|\d+)$/)
 	.length(5)
-	.empty(null)
 	.messages({ 'string.pattern.base': '"Cap" il valore deve essere numerico' });
+export const joiZipRequired = joiZip.required();
+export const joiZipOptional = joiZip.empty(null);
 
 // Vat code
 export const joiVatCode = Joi.alternatives(
@@ -41,3 +42,8 @@ export const joiStringOrNumberOptional = joiStringOrNumber.empty(null);
 export const joiBoolean = Joi.boolean();
 export const joiBooleanRequired = joiBoolean.required();
 export const joiBooleanOptional = joiBoolean.allow(null).empty(null);
+
+// Email
+export const joiEmail = Joi.string().email();
+export const joiEmailRequired = joiEmail.required();
+export const joiEmailOptional = joiEmail.empty(null);
