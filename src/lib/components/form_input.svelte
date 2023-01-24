@@ -6,7 +6,7 @@
 	export let label: string | undefined = undefined;
 	export let placeholder: string | undefined = undefined;
 	export let type: string = 'text';
-	export let value: string | number | '' | undefined = '';
+	export let value: string | number | boolean | '' | undefined = '';
 	export let autocomplete: boolean = false;
 	export let disabled: boolean = false;
 
