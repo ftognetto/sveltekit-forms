@@ -5,9 +5,7 @@
 	export let name: string;
 	export let label: string | undefined = undefined;
 	export let placeholder: string | undefined = undefined;
-	export let type: string = 'text';
-	export let value: string | number | '' | undefined = '';
-	export let autocomplete: boolean = false;
+	export let checked: boolean = false;
 	export let disabled: boolean = false;
 
 	// Css classes
@@ -32,13 +30,12 @@
 		<slot name="leading" {error} />
 		<input
 			id={name}
-			{type}
+			type="checkbox"
 			{name}
 			{placeholder}
 			class={inputClass}
-			autocomplete={autocomplete ? 'on' : null}
 			{disabled}
-			{value}
+			{checked}
 			on:change
 			on:input
 		/>
