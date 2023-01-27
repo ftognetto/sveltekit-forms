@@ -52,3 +52,7 @@ export const joiEmailOptional = joiEmail.empty(null);
 export const joiStringArray = Joi.array().items(joiString);
 export const joiStringArrayOptional = joiStringArray.empty(null);
 export const joiStringArrayRequired = joiStringArray.required();
+
+export const joiNumberArray = Joi.array().items(joiNumber);
+export const joiNumberArrayOptional = joiNumberArray.empty(null);
+export const joiNumberArrayRequired = joiNumberArray.required();
