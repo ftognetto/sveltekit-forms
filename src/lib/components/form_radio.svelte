@@ -6,7 +6,7 @@
 	export let label: string | undefined = undefined;
 	export let checked: boolean = false;
 	export let disabled: boolean = false;
-	export let value: string | number;
+	export let value: string | number | undefined = '';
 
 	// Css classes
 	export let containerClass: string | undefined = undefined;
