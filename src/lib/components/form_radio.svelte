@@ -25,7 +25,7 @@
 		<slot name="leading" {error} />
 		<input
 			id={name}
-			type="checkbox"
+			type="radio"
 			{name}
 			class={inputClass}
 			{disabled}
