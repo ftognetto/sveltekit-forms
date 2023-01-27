@@ -6,7 +6,7 @@
 	export let label: string | undefined = undefined;
 	export let checked: boolean = false;
 	export let disabled: boolean = false;
-
+	export let value: string | number | undefined = undefined;
 	// Css classes
 	export let containerClass: string | undefined = undefined;
 	export let inputContainerClass: string | undefined = undefined;
@@ -29,6 +29,7 @@
 			class={inputClass}
 			{disabled}
 			{checked}
+			{value}
 			on:change
 			on:input
 		/>
