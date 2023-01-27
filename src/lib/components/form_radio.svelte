@@ -6,6 +6,7 @@
 	export let label: string | undefined = undefined;
 	export let checked: boolean = false;
 	export let disabled: boolean = false;
+	export let value: string | number;
 
 	// Css classes
 	export let containerClass: string | undefined = undefined;
@@ -29,11 +30,12 @@
 			class={inputClass}
 			{disabled}
 			{checked}
+			{value}
 			on:change
 			on:input
 		/>
 		<slot name="label" {error}>
-			<label for={name} class={labelClass}>{label || name}</label>
+			<label for={name} class={labelClass}>{label || value}</label>
 		</slot>
 		<slot name="trailing" {error} />
 	</div>
