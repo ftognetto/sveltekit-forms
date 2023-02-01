@@ -32,6 +32,7 @@
 			{value}
 			on:change
 			on:input
+			{...$$restProps}
 		/>
 		<slot name="label" {error}>
 			<label for={name} class={labelClass}>{label || name}</label>

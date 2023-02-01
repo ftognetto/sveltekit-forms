@@ -39,6 +39,7 @@
 			{value}
 			on:change
 			on:input
+			{...$$restProps}
 		/>
 		<slot name="trailing" {error} />
 	</div>
