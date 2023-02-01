@@ -103,6 +103,13 @@
 		undefined;
 
 	/**
+	 * Controls whether the form is disabled or not.
+	 * This property disables the submit button.
+	 * Default: false
+	 */
+	export let disabled: boolean = false;
+
+	/**
 	 * Choose wheter automatically disable the UI when submitting
 	 * and re-enable it when the response is received
 	 * Default: true
@@ -199,7 +206,7 @@ It automatically create a form with error and submit handling.
 	<div class={footerClass}>
 		<slot name="otherActionsLeft" {submitting} {busy} />
 		<slot name="submit" {submitting} {busy}>
-			<button type="submit" class={submitButtonClass}>
+			<button type="submit" {disabled} class={submitButtonClass}>
 				{#if submitting}
 					<slot name="submitting" {submitting} {busy}>In progress...</slot>
 				{/if}
