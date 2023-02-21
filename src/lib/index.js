@@ -8,3 +8,4 @@ export * from './helpers/form_decoder';
 export * from './helpers/form_validator';
 export * from './helpers/joi_it_messages';
 export * from './helpers/joi_validator_helper';
+export * from './helpers/zod_validator';

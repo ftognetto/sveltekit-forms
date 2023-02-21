@@ -1,6 +1,6 @@
 // Import your language translation files
 import { z, type ZodRawShape } from 'zod';
-export const validateForm = (
+export const parseForm = (
 	data: Record<string, any>,
 	schema: ZodRawShape
 ):
