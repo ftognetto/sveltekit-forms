@@ -1,6 +1,6 @@
 {
 	"name": "sveltekit-forms",
-	"version": "1.0.21",
+	"version": "1.0.22",
 	"description": "Sveltekit Form Actions Wrapper",
 	"author": "fabriziotognetto <info@quantos.it>",
 	"repository": "github:ftognetto/sveltekit-forms",
@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"joi": "^17.7.0"
+		"joi": "^17.7.0",
+		"zod": "^3.20.6"
 	}
 }

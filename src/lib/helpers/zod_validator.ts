@@ -1,0 +1,29 @@
+// Import your language translation files
+import { z, type ZodRawShape } from 'zod';
+export const validateForm = (
+	data: Record<string, any>,
+	schema: ZodRawShape
+):
+	| { data: Record<string, any>; errors: undefined }
+	| { data: undefined; errors: Record<string, string> } => {
+	const validation = z.object(schema).safeParse(data);
+	if (validation.success) {
+		return {
+			data: validation.data,
+			errors: undefined
+		};
+	} else {
+		const errors: Record<string, string> = {};
+		for (const err of validation.error.issues) {
+			if (errors[err.path[0]]) {
+				errors[err.path[0]] += ', ' + err.message;
+			} else {
+				errors[err.path[0]] = err.message;
+			}
+		}
+		return {
+			data: undefined,
+			errors: errors
+		};
+	}
+};
