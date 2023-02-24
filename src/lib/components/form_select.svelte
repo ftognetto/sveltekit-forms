@@ -29,18 +29,9 @@
 	</slot>
 	<div class={inputContainerClass}>
 		<slot name="leading" {error} />
-		<select
-			id={name}
-			{name}
-			{placeholder}
-			class={inputClass}
-			{disabled}
-			{value}
-			on:change
-			{...$$restProps}
-		>
+		<select id={name} {name} {placeholder} class={inputClass} {disabled} on:change {...$$restProps}>
 			{#each options as option}
-				<option value={option.value}>{option.label}</option>
+				<option value={option.value} selected={value === option.value}>{option.label}</option>
 			{/each}
 		</select>
 		<slot name="trailing" {error} />
