@@ -5,7 +5,7 @@
 	export let name: string;
 	export let label: string | undefined = undefined;
 	export let placeholder: string = label || name;
-	export let value: string | number | undefined = undefined;
+	export let value: string | number | undefined | '' = '';
 	export let disabled: boolean = false;
 	export let options: { value: string | number; label: string }[];
 
@@ -29,9 +29,18 @@
 	</slot>
 	<div class={inputContainerClass}>
 		<slot name="leading" {error} />
-		<select id={name} {name} {placeholder} class={inputClass} {disabled} on:change {...$$restProps}>
+		<select
+			id={name}
+			{name}
+			{placeholder}
+			class={inputClass}
+			{disabled}
+			{value}
+			on:change
+			{...$$restProps}
+		>
 			{#each options as option}
-				<option value={option.value} selected={value === option.value}>{option.label}</option>
+				<option value={option.value}>{option.label}</option>
 			{/each}
 		</select>
 		<slot name="trailing" {error} />
