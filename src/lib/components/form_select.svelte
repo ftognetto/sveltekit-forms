@@ -5,7 +5,7 @@
 	export let name: string;
 	export let label: string | undefined = undefined;
 	export let placeholder: string = label || name;
-	export let value: string | number | undefined | '' = '';
+	export let value: string | number | '' | undefined = '';
 	export let disabled: boolean = false;
 	export let options: { value: string | number; label: string }[];
 
@@ -19,6 +19,8 @@
 	// errors
 	export let error: string | undefined = undefined;
 	$: error = $page.form?.errors && $page.form?.errors[name];
+
+	$: value = value && options.map((o) => o.value).includes(value) ? value : options[0].value;
 </script>
 
 <div class={containerClass}>
