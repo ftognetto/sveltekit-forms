@@ -1,15 +1,18 @@
 // Import your language translation files
 import { z, type ZodRawShape } from 'zod';
-export const parseForm = (
-	form: FormData,
+
+export const parseRecord = (
+	object: Record<string, any>,
 	schema: ZodRawShape
 ):
 	| { data: Record<string, any>; errors: undefined }
 	| { data: undefined; errors: Record<string, string> } => {
-	const validation = z.object(schema).safeParse(Object.fromEntries(form.entries()));
+	const zObject = z.object(schema);
+	type InferredType = z.infer<typeof zObject>;
+	const validation = zObject.safeParse(object);
 	if (validation.success) {
 		return {
-			data: validation.data,
+			data: validation.data as InferredType,
 			errors: undefined
 		};
 	} else {
@@ -26,4 +29,14 @@ export const parseForm = (
 			errors: errors
 		};
 	}
+};
+
+export const parseForm = (
+	form: FormData,
+	schema: ZodRawShape
+):
+	| { data: Record<string, any>; errors: undefined }
+	| { data: undefined; errors: Record<string, string> } => {
+	const record = Object.fromEntries(form.entries());
+	return parseRecord(record, schema);
 };
