@@ -122,7 +122,7 @@
 	/// INTERNAL VARIABLES
 	const errors = writable({} as Record<string, string>);
 	setContext(`sveltekit-forms-errors`, errors);
-	let error = $errors?.generic;
+	$: error = $errors?.generic;
 	let submitting: boolean = false;
 	let busy: boolean = false; // Whether the form is busy (submitting or any other custom actions)
 
