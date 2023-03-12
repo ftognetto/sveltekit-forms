@@ -6,8 +6,9 @@
 	// loading ui
 
 	import { enhance, type SubmitFunction } from '$app/forms';
-	import { page } from '$app/stores';
 	import type { ActionResult } from '@sveltejs/kit';
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
 
 	/**
 	 * The action of the form. Can be undefined
@@ -102,6 +103,8 @@
 	export let onFailure: ((result: Extract<ActionResult, { type: 'failure' }>) => void) | undefined =
 		undefined;
 
+	export let customEnhance: SubmitFunction | undefined = undefined;
+
 	/**
 	 * Controls whether the form is disabled or not.
 	 * This property disables the submit button.
@@ -117,8 +120,9 @@
 	export let automaticallyDisableUi: boolean = true;
 
 	/// INTERNAL VARIABLES
-
-	$: error = $page.form?.errors?.generic;
+	const errors = writable({} as Record<string, string>);
+	setContext(`sveltekit-forms-errors`, errors);
+	let error = $errors?.generic;
 	let submitting: boolean = false;
 	let busy: boolean = false; // Whether the form is busy (submitting or any other custom actions)
 
@@ -146,6 +150,11 @@
 			if (onResult) onResult(result);
 			else if (result.type === 'success' && onSuccess) onSuccess(result);
 			else if (result.type === 'failure' && onFailure) onFailure(result);
+
+			if (result.type === 'failure') {
+				// update error context
+				errors.set(result.data?.errors ?? {});
+			}
 
 			// update form
 			await update({ reset: false });
@@ -189,7 +198,13 @@ It automatically create a form with error and submit handling.
 	>
 	```
   -->
-<form {action} method="POST" use:enhance={_enhance} class={formClass} novalidate={true}>
+<form
+	{action}
+	method="POST"
+	use:enhance={customEnhance || _enhance}
+	class={formClass}
+	novalidate={true}
+>
 	<!-- Slot for inputs -->
 	<slot />
 

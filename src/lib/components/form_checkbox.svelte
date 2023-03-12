@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { getContext } from 'svelte';
+	import type { Writable } from 'svelte/store';
 
 	// input specific properties
 	export let name: string;
@@ -16,7 +17,8 @@
 
 	// errors
 	export let error: string | undefined = undefined;
-	$: error = $page.form?.errors && $page.form?.errors[name];
+	const errors: Writable<Record<string, string>> = getContext('sveltekit-forms-errors');
+	$: error = $errors[name];
 </script>
 
 <div class={containerClass}>
@@ -42,7 +44,7 @@
 	{#if error}
 		<slot name="error">
 			<div class={errorClass}>
-				{@html $page.form?.errors[name].split(',').join('<br/>')}
+				{@html error.split(',').join('<br/>')}
 			</div>
 		</slot>
 	{/if}
