@@ -1,14 +1,12 @@
-// Import your language translation files
-import { z, ZodObject, type ZodRawShape } from 'zod';
+import type { z, ZodTypeAny } from 'zod';
 
-export const safeParseForm = (
+export const safeParseForm = <T extends ZodTypeAny>(
 	form: FormData | Record<string, any>,
-	schema: ZodRawShape | ZodObject<any>
+	schema: T
 ):
-	| { data: Record<string, any>; errors: undefined }
+	| { data: z.infer<typeof schema>; errors: undefined }
 	| { data: undefined; errors: Record<string, string> } => {
 	// if schema is not an object i transform it in an object
-	const zObject = schema instanceof ZodObject ? schema : z.object(schema);
 	const data = form instanceof FormData ? Object.fromEntries(form.entries()) : form;
 
 	// if in data there are fields with dot i assume that they are nested objects
@@ -30,13 +28,13 @@ export const safeParseForm = (
 	}
 
 	// inferred type - should be the return type of the function
-	type InferredType = z.infer<typeof zObject>;
+	//type InferredType = z.infer<typeof zObject>;
 
 	// Validation
-	const validation = zObject.safeParse(data);
+	const validation = schema.safeParse(data);
 	if (validation.success) {
 		return {
-			data: validation.data as InferredType,
+			data: validation.data,
 			errors: undefined
 		};
 	} else {
