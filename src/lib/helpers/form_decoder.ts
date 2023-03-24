@@ -34,3 +34,42 @@ export const decodeForm = (formData: FormData): Record<string, any> => {
 		return data;
 	}, {} as Record<string, StructuredFormData>);
 };
+
+export const decodeNestedFields = (data: Record<string, any>): Record<string, any> => {
+	// if in data there are fields with dot i assume that they are nested objects
+	// and i transform them in nested objects
+	for (const [key, value] of Object.entries(data)) {
+		if (key.includes('.')) {
+			const keys = key.split('.');
+			const lastKey = keys.pop() as string;
+			let obj = data;
+			for (const k of keys) {
+				if (!obj[k]) {
+					obj[k] = {};
+				}
+				obj = obj[k];
+			}
+			obj[lastKey] = value;
+			delete data[key];
+		}
+	}
+	return data;
+};
+
+export const decodeFormData = (data: FormData): Record<string, any> => {
+	var object: Record<string, any> = {};
+	data.forEach((value, key) => {
+		// Reflect.has in favor of: object.hasOwnProperty(key)
+		if (!Reflect.has(object, key)) {
+			object[key] = value;
+			return;
+		}
+		// For grouped fields like multi-selects and checkboxes, we need to
+		// store the values in an array.
+		if (!Array.isArray(object[key])) {
+			object[key] = [object[key]];
+		}
+		object[key].push(value);
+	});
+	return data;
+};

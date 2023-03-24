@@ -1,4 +1,5 @@
 import type { z, ZodTypeAny } from 'zod';
+import { decodeFormData, decodeNestedFields } from './form_decoder';
 
 export const safeParseForm = <T extends ZodTypeAny>(
 	form: FormData | Record<string, any>,
@@ -7,25 +8,11 @@ export const safeParseForm = <T extends ZodTypeAny>(
 	| { data: z.infer<typeof schema>; errors: undefined }
 	| { data: undefined; errors: Record<string, string> } => {
 	// if schema is not an object i transform it in an object
-	const data = form instanceof FormData ? Object.fromEntries(form.entries()) : form;
+	let data = form instanceof FormData ? decodeFormData(form) : form;
 
 	// if in data there are fields with dot i assume that they are nested objects
 	// and i transform them in nested objects
-	for (const [key, value] of Object.entries(data)) {
-		if (key.includes('.')) {
-			const keys = key.split('.');
-			const lastKey = keys.pop() as string;
-			let obj = data;
-			for (const k of keys) {
-				if (!obj[k]) {
-					obj[k] = {};
-				}
-				obj = obj[k];
-			}
-			obj[lastKey] = value;
-			delete data[key];
-		}
-	}
+	data = decodeNestedFields(data);
 
 	// inferred type - should be the return type of the function
 	//type InferredType = z.infer<typeof zObject>;
