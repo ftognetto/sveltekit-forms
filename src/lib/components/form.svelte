@@ -169,14 +169,15 @@
 	const disableUI = (form: HTMLFormElement) => {
 		if (!automaticallyDisableUi) return () => {};
 		form.querySelectorAll('button').forEach((node) => (node.disabled = true));
-		form.querySelectorAll('input').forEach((node) => (node.disabled = true));
-		form.querySelectorAll('textarea').forEach((node) => (node.disabled = true));
-		form.querySelectorAll('select').forEach((node) => (node.disabled = true));
+		// non disabilito i campi perché potrebbero essere disabilitati per altri scopi
+		// form.querySelectorAll('input').forEach((node) => (node.disabled = true));
+		// form.querySelectorAll('textarea').forEach((node) => (node.disabled = true));
+		// form.querySelectorAll('select').forEach((node) => (node.disabled = true));
 		return () => {
 			form.querySelectorAll('button').forEach((node) => (node.disabled = false));
-			form.querySelectorAll('input').forEach((node) => (node.disabled = false));
-			form.querySelectorAll('textarea').forEach((node) => (node.disabled = false));
-			form.querySelectorAll('select').forEach((node) => (node.disabled = false));
+			// form.querySelectorAll('input').forEach((node) => (node.disabled = false));
+			// form.querySelectorAll('textarea').forEach((node) => (node.disabled = false));
+			// form.querySelectorAll('select').forEach((node) => (node.disabled = false));
 		};
 	};
 </script>

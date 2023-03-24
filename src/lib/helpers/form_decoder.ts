@@ -71,5 +71,5 @@ export const decodeFormData = (data: FormData): Record<string, any> => {
 		}
 		object[key].push(value);
 	});
-	return data;
+	return object;
 };

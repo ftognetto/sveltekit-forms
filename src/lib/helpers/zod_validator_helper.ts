@@ -42,7 +42,9 @@ export const zEmail = z.coerce.string().email();
 export const zEmailOptional = z.union([zEmail, z.string().length(0)]).optional();
 
 // Arrays
-export const zStringArray = z.array(zString);
+export const zStringArray = z
+	.union([zString, z.string().array()])
+	.transform((val) => (Array.isArray(val) ? val : [val]));
 export const zStringArrayOptional = zStringArray.optional();
 
 export const zNumberArray = z.array(zNumber);

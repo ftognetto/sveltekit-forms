@@ -28,10 +28,10 @@ export const safeParseForm = <T extends ZodTypeAny>(
 		// format the errors in a more readable way
 		const errors: Record<string, string> = {};
 		for (const err of validation.error.issues) {
-			if (errors[err.path[0]]) {
-				errors[err.path[0]] += ', ' + err.message;
+			if (errors[err.path.join('.')]) {
+				errors[err.path.join('.')] += ', ' + err.message;
 			} else {
-				errors[err.path[0]] = err.message;
+				errors[err.path.join('.')] = err.message;
 			}
 		}
 		return {

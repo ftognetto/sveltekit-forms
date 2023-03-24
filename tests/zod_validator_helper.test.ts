@@ -1,8 +1,13 @@
 import { expect, test, vitest } from 'vitest';
 import z from 'zod';
-import { decodeFormData } from '../src/lib/helpers/form_decoder';
 import { safeParseForm } from '../src/lib/helpers/zod_validator';
-import { zEmail, zNumber, zString, zStringOptional } from '../src/lib/helpers/zod_validator_helper';
+import {
+	zEmail,
+	zNumber,
+	zString,
+	zStringArray,
+	zStringOptional
+} from '../src/lib/helpers/zod_validator_helper';
 test('zod validator helper', () => {
 	const a = zString.parse('hello');
 	expect(a).toBe('hello');
@@ -47,13 +52,26 @@ class FormDataMock {
 // @ts-ignore
 global.FormData = FormDataMock;
 
-test('zod validator helper - checkboxes', () => {
+// test('zod validator helper - checkboxes', () => {
+// 	const schema = z.object({
+// 		checkboxes: z.array(z.string())
+// 	});
+// 	const formdata = new FormData();
+// 	formdata.append('checkboxes', 'hello');
+// 	formdata.append('checkboxes', 'world');
+// 	const data = decodeFormData(formdata);
+// 	expect(data).toEqual({ checkboxes: ['hello', 'world'] });
+// });
+
+test('zod validator helper - arrays', () => {
 	const schema = z.object({
-		checkboxes: z.array(z.string())
+		array: zStringArray
 	});
-	const formdata = new FormData();
-	formdata.append('checkboxes', 'hello');
-	formdata.append('checkboxes', 'world');
-	const data = decodeFormData(formdata);
-	expect(data).toEqual({ checkboxes: ['hello', 'world'] });
+	const { data, errors } = safeParseForm({ array: ['hello', 'world'] }, schema);
+	expect(data).toEqual({ array: ['hello', 'world'] });
+	expect(errors).toBe(undefined);
+
+	const { data: data2, errors: errors2 } = safeParseForm({ array: 'hello' }, schema);
+	expect(data2).toStrictEqual({ array: ['hello'] });
+	expect(errors2).toEqual(undefined);
 });

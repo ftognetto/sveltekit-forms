@@ -1,26 +1,29 @@
 {
 	"name": "sveltekit-forms",
-	"version": "1.0.41",
+	"version": "1.0.47",
 	"description": "Sveltekit Form Actions Wrapper",
 	"author": "fabriziotognetto <info@quantos.it>",
 	"repository": "github:ftognetto/sveltekit-forms",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "svelte-kit sync && svelte-package",
-		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
+		"build": "svelte-kit sync && svelte-package -o package",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"publish": "npm run build && cd package && npm publish && cd .."
+		"deploy": "npm run build && npm publish"
+	},
+	"peerDependencies": {
+		"@sveltejs/kit": "^1.11.0",
+		"svelte": "^3.56.0"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.31.2",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.11.0",
-		"@sveltejs/package": "^2.0.2",
+		"@sveltejs/package": "^2.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.54.1",
 		"@typescript-eslint/parser": "^5.54.1",
 		"eslint": "^8.35.0",
@@ -40,5 +43,114 @@
 	"dependencies": {
 		"joi": "^17.7.0",
 		"zod": "^3.20.6"
+	},
+	"exports": {
+		"./package.json": "./package.json",
+		"./components/form.svelte": {
+			"types": "./package/components/form.svelte.d.ts",
+			"svelte": "./package/components/form.svelte",
+			"default": "./package/components/form.svelte"
+		},
+		"./components/form_checkbox.svelte": {
+			"types": "./package/components/form_checkbox.svelte.d.ts",
+			"svelte": "./package/components/form_checkbox.svelte",
+			"default": "./package/components/form_checkbox.svelte"
+		},
+		"./components/form_input.svelte": {
+			"types": "./package/components/form_input.svelte.d.ts",
+			"svelte": "./package/components/form_input.svelte",
+			"default": "./package/components/form_input.svelte"
+		},
+		"./components/form_radio.svelte": {
+			"types": "./package/components/form_radio.svelte.d.ts",
+			"svelte": "./package/components/form_radio.svelte",
+			"default": "./package/components/form_radio.svelte"
+		},
+		"./components/form_select.svelte": {
+			"types": "./package/components/form_select.svelte.d.ts",
+			"svelte": "./package/components/form_select.svelte",
+			"default": "./package/components/form_select.svelte"
+		},
+		"./components/form_textarea.svelte": {
+			"types": "./package/components/form_textarea.svelte.d.ts",
+			"svelte": "./package/components/form_textarea.svelte",
+			"default": "./package/components/form_textarea.svelte"
+		},
+		"./helpers/form_decoder": {
+			"types": "./package/helpers/form_decoder.d.ts",
+			"default": "./package/helpers/form_decoder.js"
+		},
+		"./helpers/form_validator": {
+			"types": "./package/helpers/form_validator.d.ts",
+			"default": "./package/helpers/form_validator.js"
+		},
+		"./helpers/joi_it_messages": {
+			"types": "./package/helpers/joi_it_messages.d.ts",
+			"default": "./package/helpers/joi_it_messages.js"
+		},
+		"./helpers/joi_validator_helper": {
+			"types": "./package/helpers/joi_validator_helper.d.ts",
+			"default": "./package/helpers/joi_validator_helper.js"
+		},
+		"./helpers/zod_validator": {
+			"types": "./package/helpers/zod_validator.d.ts",
+			"default": "./package/helpers/zod_validator.js"
+		},
+		"./helpers/zod_validator_helper": {
+			"types": "./package/helpers/zod_validator_helper.d.ts",
+			"default": "./package/helpers/zod_validator_helper.js"
+		},
+		".": {
+			"types": "./package/index.d.ts",
+			"svelte": "./package/index.js",
+			"default": "./package/index.js"
+		}
+	},
+	"files": [
+		"package"
+	],
+	"svelte": "./package/index.js",
+	"typesVersions": {
+		">4.0": {
+			"components/form.svelte": [
+				"./package/components/form.svelte.d.ts"
+			],
+			"components/form_checkbox.svelte": [
+				"./package/components/form_checkbox.svelte.d.ts"
+			],
+			"components/form_input.svelte": [
+				"./package/components/form_input.svelte.d.ts"
+			],
+			"components/form_radio.svelte": [
+				"./package/components/form_radio.svelte.d.ts"
+			],
+			"components/form_select.svelte": [
+				"./package/components/form_select.svelte.d.ts"
+			],
+			"components/form_textarea.svelte": [
+				"./package/components/form_textarea.svelte.d.ts"
+			],
+			"helpers/form_decoder": [
+				"./package/helpers/form_decoder.d.ts"
+			],
+			"helpers/form_validator": [
+				"./package/helpers/form_validator.d.ts"
+			],
+			"helpers/joi_it_messages": [
+				"./package/helpers/joi_it_messages.d.ts"
+			],
+			"helpers/joi_validator_helper": [
+				"./package/helpers/joi_validator_helper.d.ts"
+			],
+			"helpers/zod_validator": [
+				"./package/helpers/zod_validator.d.ts"
+			],
+			"helpers/zod_validator_helper": [
+				"./package/helpers/zod_validator_helper.d.ts"
+			],
+			"index": [
+				"./package/index.d.ts"
+			]
+		}
 	}
 }
