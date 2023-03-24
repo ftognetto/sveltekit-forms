@@ -20,7 +20,7 @@
 	// errors
 	export let error: string | undefined = undefined;
 	const errors: Writable<Record<string, string>> = getContext('sveltekit-forms-errors');
-	$: error = $errors[name];
+	$: error = $errors && $errors[name];
 </script>
 
 <div class={containerClass}>
