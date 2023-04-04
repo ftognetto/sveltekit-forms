@@ -1,6 +1,6 @@
 import { expect, test, vitest } from 'vitest';
 import z from 'zod';
-import { safeParseForm } from '../src/lib/helpers/zod_validator';
+import { safeParseForm } from '../src/lib/helpers/form_validator';
 import {
 	zEmail,
 	zNumber,

@@ -61,7 +61,11 @@ export const decodeFormData = (data: FormData): Record<string, any> => {
 	data.forEach((value, key) => {
 		// Reflect.has in favor of: object.hasOwnProperty(key)
 		if (!Reflect.has(object, key)) {
-			object[key] = value;
+			if (value && value.length) {
+				object[key] = value;
+			} else {
+				object[key] = undefined;
+			}
 			return;
 		}
 		// For grouped fields like multi-selects and checkboxes, we need to

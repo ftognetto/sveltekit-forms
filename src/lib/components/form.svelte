@@ -154,10 +154,12 @@
 			if (result.type === 'failure') {
 				// update error context
 				errors.set(result.data?.errors ?? {});
+			} else {
+				errors.set({});
 			}
 
 			// update form
-			await update({ reset: false });
+			await update();
 
 			// update loading ui
 			reEnableUI();
