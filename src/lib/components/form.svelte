@@ -103,6 +103,7 @@
 	export let onFailure: ((result: Extract<ActionResult, { type: 'failure' }>) => void) | undefined =
 		undefined;
 
+	export let resetOnSuccess = true;
 	export let customEnhance: SubmitFunction | undefined = undefined;
 
 	/**
@@ -159,7 +160,7 @@
 			}
 
 			// update form
-			await update();
+			await update({ reset: resetOnSuccess });
 
 			// update loading ui
 			reEnableUI();
