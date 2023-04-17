@@ -32,6 +32,7 @@
 			class={inputClass}
 			{disabled}
 			{checked}
+			bind:group={value}
 			{value}
 			on:change
 			on:input

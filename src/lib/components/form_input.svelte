@@ -6,7 +6,8 @@
 	export let name: string;
 	export let label: string | undefined = undefined;
 	export let placeholder: string | undefined = undefined;
-	export let type: string = 'text';
+	export let type: 'text' | 'date' | 'number' | 'email' | 'password' | 'file' | 'url' | 'tel' =
+		'text';
 	export let value: string | number | Date | '' | undefined = '';
 	export let autocomplete: boolean = false;
 	export let disabled: boolean = false;
@@ -32,19 +33,119 @@
 	</slot>
 	<div class={inputContainerClass}>
 		<slot name="leading" {error} />
-		<input
-			id={name}
-			{type}
-			{name}
-			{placeholder}
-			class={inputClass}
-			autocomplete={autocomplete ? 'on' : null}
-			{disabled}
-			{value}
-			on:change
-			on:input
-			{...$$restProps}
-		/>
+		{#if type === 'text'}
+			<input
+				id={name}
+				type="text"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'date'}
+			<input
+				id={name}
+				type="date"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'number'}
+			<input
+				id={name}
+				type="number"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'email'}
+			<input
+				id={name}
+				type="email"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'password'}
+			<input
+				id={name}
+				type="password"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'file'}
+			<input
+				id={name}
+				type="file"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'url'}
+			<input
+				id={name}
+				type="url"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'tel'}
+			<input
+				id={name}
+				type="tel"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{/if}
 		<slot name="trailing" {error} />
 	</div>
 	{#if error}

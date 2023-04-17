@@ -38,7 +38,7 @@
 			class={inputClass}
 			autocomplete={autocomplete ? 'on' : null}
 			{disabled}
-			{value}
+			bind:value
 			on:change
 			on:input
 			{...$$restProps}

@@ -39,7 +39,7 @@
 			{placeholder}
 			class={inputClass}
 			{disabled}
-			{value}
+			bind:value
 			on:change
 			{...$$restProps}
 		>
