@@ -5,7 +5,7 @@
 	// submit
 	// loading ui
 
-	import { enhance, type SubmitFunction } from '$app/forms';
+	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -120,6 +120,12 @@
 	 */
 	export let automaticallyDisableUi: boolean = true;
 
+	/**
+	 * Choose wheter to transform errors into fail responses
+	 * Default: true
+	 */
+	export let handleErrors: boolean = true;
+
 	/// INTERNAL VARIABLES
 	const errors = writable({} as Record<string, string>);
 	setContext(`sveltekit-forms-errors`, errors);
@@ -155,13 +161,23 @@
 			if (result.type === 'failure') {
 				// update error context
 				errors.set(result.data?.errors ?? {});
+				// update form
+				await update({ reset: resetOnSuccess });
+			} else if (handleErrors && result.type === 'error') {
+				// update error context
+				errors.set({ generic: result.error.message });
+				// transform error into failure
+				await applyAction({
+					status: result.status || 400,
+					type: 'failure',
+					data: { errors: { generic: result.error.message } }
+				});
 			} else {
+				// update error context
 				errors.set({});
+				// update form
+				await update({ reset: resetOnSuccess });
 			}
-
-			// update form
-			await update({ reset: resetOnSuccess });
-
 			// update loading ui
 			reEnableUI();
 			submitting = false;
