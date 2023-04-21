@@ -6,8 +6,16 @@
 	export let name: string;
 	export let label: string | undefined = undefined;
 	export let placeholder: string | undefined = undefined;
-	export let type: 'text' | 'date' | 'number' | 'email' | 'password' | 'file' | 'url' | 'tel' =
-		'text';
+	export let type:
+		| 'text'
+		| 'date'
+		| 'datetime-local'
+		| 'number'
+		| 'email'
+		| 'password'
+		| 'file'
+		| 'url'
+		| 'tel' = 'text';
 	export let value: string | number | Date | '' | undefined = '';
 	export let autocomplete: boolean = false;
 	export let disabled: boolean = false;
@@ -51,6 +59,20 @@
 			<input
 				id={name}
 				type="date"
+				{name}
+				{placeholder}
+				class={inputClass}
+				autocomplete={autocomplete ? 'on' : null}
+				{disabled}
+				bind:value
+				on:change
+				on:input
+				{...$$restProps}
+			/>
+		{:else if type === 'datetime-local'}
+			<input
+				id={name}
+				type="datetime-local"
 				{name}
 				{placeholder}
 				class={inputClass}
