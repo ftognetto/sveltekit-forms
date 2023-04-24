@@ -1,4 +1,4 @@
-<script>import { enhance } from "$app/forms";
+<script>import { applyAction, enhance } from "$app/forms";
 import { setContext } from "svelte";
 import { writable } from "svelte/store";
 export let action = void 0;
@@ -12,9 +12,11 @@ export let onBeforeSubmit = void 0;
 export let onResult = void 0;
 export let onSuccess = void 0;
 export let onFailure = void 0;
+export let resetOnSuccess = true;
 export let customEnhance = void 0;
 export let disabled = false;
 export let automaticallyDisableUi = true;
+export let handleErrors = true;
 const errors = writable({});
 setContext(`sveltekit-forms-errors`, errors);
 $:
@@ -46,8 +48,18 @@ const _enhance = (event) => {
       onFailure(result);
     if (result.type === "failure") {
       errors.set(result.data?.errors ?? {});
+      await update({ reset: resetOnSuccess });
+    } else if (handleErrors && result.type === "error") {
+      errors.set({ generic: result.error.message });
+      await applyAction({
+        status: result.status || 400,
+        type: "failure",
+        data: { errors: { generic: result.error.message } }
+      });
+    } else {
+      errors.set({});
+      await update({ reset: resetOnSuccess });
     }
-    await update({ reset: false });
     reEnableUI();
     submitting = false;
     busy = false;
@@ -58,14 +70,8 @@ const disableUI = (form) => {
     return () => {
     };
   form.querySelectorAll("button").forEach((node) => node.disabled = true);
-  form.querySelectorAll("input").forEach((node) => node.disabled = true);
-  form.querySelectorAll("textarea").forEach((node) => node.disabled = true);
-  form.querySelectorAll("select").forEach((node) => node.disabled = true);
   return () => {
     form.querySelectorAll("button").forEach((node) => node.disabled = false);
-    form.querySelectorAll("input").forEach((node) => node.disabled = false);
-    form.querySelectorAll("textarea").forEach((node) => node.disabled = false);
-    form.querySelectorAll("select").forEach((node) => node.disabled = false);
   };
 };
 </script>
@@ -95,7 +101,7 @@ It automatically create a form with error and submit handling.
 	novalidate={true}
 >
 	<!-- Slot for inputs -->
-	<slot />
+	<slot errors={$errors} />
 
 	<!-- Slot for displaying 'generic' error -->
 	<slot name="error" {error}>

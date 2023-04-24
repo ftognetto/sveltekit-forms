@@ -56,6 +56,7 @@ declare const __propDef: {
              */ onFailure?: ((result: Extract<ActionResult, {
             type: 'failure';
         }>) => void) | undefined;
+        resetOnSuccess?: boolean | undefined;
         customEnhance?: SubmitFunction | undefined;
         /**
              * Controls whether the form is disabled or not.
@@ -67,12 +68,18 @@ declare const __propDef: {
              * and re-enable it when the response is received
              * Default: true
              */ automaticallyDisableUi?: boolean | undefined;
+        /**
+             * Choose wheter to transform errors into fail responses
+             * Default: true
+             */ handleErrors?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
     };
     slots: {
-        default: {};
+        default: {
+            errors: Record<string, string>;
+        };
         error: {
             error: string;
         };

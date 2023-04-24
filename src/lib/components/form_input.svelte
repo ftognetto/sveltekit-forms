@@ -24,8 +24,9 @@
 	export let containerClass: string | undefined = undefined;
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
+	export let errorInputClass: string | undefined = undefined;
 	export let labelClass: string | undefined = undefined;
-	export let errorClass: string | undefined = undefined;
+	export let errorContainerClass: string | undefined = undefined;
 
 	// errors
 	export let error: string | undefined = undefined;
@@ -47,7 +48,7 @@
 				type="text"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -61,7 +62,7 @@
 				type="date"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -75,7 +76,7 @@
 				type="datetime-local"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -89,7 +90,7 @@
 				type="number"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -103,7 +104,7 @@
 				type="email"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -117,7 +118,7 @@
 				type="password"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -131,7 +132,7 @@
 				type="file"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -145,7 +146,7 @@
 				type="url"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -159,7 +160,7 @@
 				type="tel"
 				{name}
 				{placeholder}
-				class={inputClass}
+				class={error ? errorInputClass || inputClass : inputClass}
 				autocomplete={autocomplete ? 'on' : null}
 				{disabled}
 				bind:value
@@ -172,7 +173,7 @@
 	</div>
 	{#if error}
 		<slot name="error">
-			<div class={errorClass}>
+			<div class={errorContainerClass}>
 				{@html error.split(',').join('<br/>')}
 			</div>
 		</slot>

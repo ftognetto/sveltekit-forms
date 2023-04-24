@@ -14,8 +14,9 @@
 	export let containerClass: string | undefined = undefined;
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
+	export let errorInputClass: string | undefined = undefined;
 	export let labelClass: string | undefined = undefined;
-	export let errorClass: string | undefined = undefined;
+	export let errorContainerClass: string | undefined = undefined;
 
 	// errors
 	export let error: string | undefined = undefined;
@@ -37,7 +38,7 @@
 			id={name}
 			{name}
 			{placeholder}
-			class={inputClass}
+			class={error ? errorInputClass || inputClass : inputClass}
 			{disabled}
 			bind:value
 			on:change
@@ -51,7 +52,7 @@
 	</div>
 	{#if error}
 		<slot name="error">
-			<div class={errorClass}>
+			<div class={errorContainerClass}>
 				{@html error.split(',').join('<br/>')}
 			</div>
 		</slot>

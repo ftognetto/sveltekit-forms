@@ -7,12 +7,13 @@ export let value = "on";
 export let containerClass = void 0;
 export let inputContainerClass = void 0;
 export let inputClass = void 0;
+export let errorInputClass = void 0;
 export let labelClass = void 0;
-export let errorClass = void 0;
+export let errorContainerClass = void 0;
 export let error = void 0;
 const errors = getContext("sveltekit-forms-errors");
 $:
-  error = $errors[name];
+  error = $errors && $errors[name];
 </script>
 
 <div class={containerClass}>
@@ -22,7 +23,7 @@ $:
 			id={name}
 			type="checkbox"
 			{name}
-			class={inputClass}
+			class={error ? errorInputClass || inputClass : inputClass}
 			{disabled}
 			{checked}
 			{value}
@@ -37,7 +38,7 @@ $:
 	</div>
 	{#if error}
 		<slot name="error">
-			<div class={errorClass}>
+			<div class={errorContainerClass}>
 				{@html error.split(',').join('<br/>')}
 			</div>
 		</slot>

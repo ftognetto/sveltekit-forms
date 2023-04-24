@@ -11,8 +11,9 @@ declare const __propDef: {
         containerClass?: string | undefined;
         inputContainerClass?: string | undefined;
         inputClass?: string | undefined;
+        errorInputClass?: string | undefined;
         labelClass?: string | undefined;
-        errorClass?: string | undefined;
+        errorContainerClass?: string | undefined;
         error?: string | undefined;
     };
     events: {
