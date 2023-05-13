@@ -96,7 +96,7 @@ It automatically create a form with error and submit handling.
   -->
 <form {id} {action} method="POST" use:enhance={customEnhance || _enhance} class={formClass}>
 	<!-- Slot for inputs -->
-	<slot errors={$errors} {submitting} />
+	<slot errors={$errors} />
 
 	<!-- Slot for displaying 'generic' error -->
 	<slot name="error" {error}>

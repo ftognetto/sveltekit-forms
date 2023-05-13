@@ -82,7 +82,6 @@ declare const __propDef: {
     slots: {
         default: {
             errors: Record<string, string>;
-            submitting: boolean;
         };
         error: {
             error: string;
