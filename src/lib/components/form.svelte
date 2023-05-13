@@ -126,6 +126,11 @@
 	 */
 	export let handleErrors: boolean = true;
 
+	/**
+	 * ID of the html form element
+	 */
+	export let id: string = `sveltekit-form-${Math.random().toString(36).substr(2, 9)}`;
+
 	/// INTERNAL VARIABLES
 	const errors = writable({} as Record<string, string>);
 	setContext(`sveltekit-forms-errors`, errors);
@@ -218,13 +223,7 @@ It automatically create a form with error and submit handling.
 	>
 	```
   -->
-<form
-	{action}
-	method="POST"
-	use:enhance={customEnhance || _enhance}
-	class={formClass}
-	novalidate={true}
->
+<form {id} {action} method="POST" use:enhance={customEnhance || _enhance} class={formClass}>
 	<!-- Slot for inputs -->
 	<slot errors={$errors} />
 

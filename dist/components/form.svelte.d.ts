@@ -72,6 +72,9 @@ declare const __propDef: {
              * Choose wheter to transform errors into fail responses
              * Default: true
              */ handleErrors?: boolean | undefined;
+        /**
+             * ID of the html form element
+             */ id?: string | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

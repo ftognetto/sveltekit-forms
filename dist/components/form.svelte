@@ -17,6 +17,7 @@ export let customEnhance = void 0;
 export let disabled = false;
 export let automaticallyDisableUi = true;
 export let handleErrors = true;
+export let id = `sveltekit-form-${Math.random().toString(36).substr(2, 9)}`;
 const errors = writable({});
 setContext(`sveltekit-forms-errors`, errors);
 $:
@@ -93,13 +94,7 @@ It automatically create a form with error and submit handling.
 	>
 	```
   -->
-<form
-	{action}
-	method="POST"
-	use:enhance={customEnhance || _enhance}
-	class={formClass}
-	novalidate={true}
->
+<form {id} {action} method="POST" use:enhance={customEnhance || _enhance} class={formClass}>
 	<!-- Slot for inputs -->
 	<slot errors={$errors} />
 
