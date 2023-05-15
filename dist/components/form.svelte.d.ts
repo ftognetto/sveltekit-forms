@@ -31,31 +31,6 @@ declare const __propDef: {
              * @param The event that triggered the submit
              * @return void
              */ onBeforeSubmit?: ((data: FormData) => boolean | undefined) | undefined;
-        /**
-             * (Optional) If specified, this callback will be executed after a successful response from server side.
-             *
-             * In the callback can also modify the ActionResult
-             * @param The successful `ActionResult` returned from the server
-             * @return The `ActionResult` to apply
-             */ onResult?: ((result: ActionResult) => void) | undefined;
-        /**
-             * (Optional) If specified, this callback will be executed after a successful response from server side.
-             *
-             * In the callback can also modify the ActionResult
-             * @param The successful `ActionResult` returned from the server
-             * @return The `ActionResult` to apply
-             */ onSuccess?: ((result: Extract<ActionResult, {
-            type: 'success';
-        }>) => void) | undefined;
-        /**
-             * (Optional) If specified, this callback will be executed after a successful response from server side.
-             *
-             * In the callback can also modify the ActionResult
-             * @param The successful `ActionResult` returned from the server
-             * @return The `ActionResult` to apply
-             */ onFailure?: ((result: Extract<ActionResult, {
-            type: 'failure';
-        }>) => void) | undefined;
         resetOnSuccess?: boolean | undefined;
         customEnhance?: SubmitFunction | undefined;
         /**
@@ -77,6 +52,23 @@ declare const __propDef: {
              */ id?: string | undefined;
     };
     events: {
+        result: CustomEvent<ActionResult<Record<string, any>, Record<string, any>>>;
+        success: CustomEvent<{
+            type: "success";
+            status: number;
+            data?: Record<string, any> | undefined;
+        }>;
+        failure: CustomEvent<{
+            type: "failure";
+            status: number;
+            data?: Record<string, any> | undefined;
+        }>;
+        error: CustomEvent<{
+            type: "error";
+            status?: number | undefined;
+            error: any;
+        }>;
+    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {

@@ -1,6 +1,7 @@
 <script>import { applyAction, enhance } from "$app/forms";
-import { setContext } from "svelte";
+import { createEventDispatcher, setContext } from "svelte";
 import { writable } from "svelte/store";
+const dispatch = createEventDispatcher();
 export let action = void 0;
 export let submitLabel = "Salva";
 let formClass = void 0;
@@ -9,9 +10,6 @@ export let footerClass = void 0;
 export let submitButtonClass = void 0;
 export let errorClass = void 0;
 export let onBeforeSubmit = void 0;
-export let onResult = void 0;
-export let onSuccess = void 0;
-export let onFailure = void 0;
 export let resetOnSuccess = true;
 export let customEnhance = void 0;
 export let disabled = false;
@@ -41,12 +39,13 @@ const _enhance = (event) => {
     }
   }
   return async ({ result, update }) => {
-    if (onResult)
-      onResult(result);
-    else if (result.type === "success" && onSuccess)
-      onSuccess(result);
-    else if (result.type === "failure" && onFailure)
-      onFailure(result);
+    dispatch("result", result);
+    if (result.type === "success")
+      dispatch("success", result);
+    if (result.type === "failure")
+      dispatch("failure", result);
+    if (result.type === "error")
+      dispatch("error", result);
     if (result.type === "failure") {
       errors.set(result.data?.errors ?? {});
       await update({ reset: resetOnSuccess });

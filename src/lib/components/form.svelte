@@ -7,8 +7,14 @@
 
 	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { setContext } from 'svelte';
+	import { createEventDispatcher, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
+	const dispatch = createEventDispatcher<{
+		result: ActionResult;
+		success: Extract<ActionResult, { type: 'success' }>;
+		failure: Extract<ActionResult, { type: 'failure' }>;
+		error: Extract<ActionResult, { type: 'error' }>;
+	}>();
 
 	/**
 	 * The action of the form. Can be undefined
@@ -74,35 +80,6 @@
 	 */
 	export let onBeforeSubmit: ((data: FormData) => boolean | undefined) | undefined = undefined;
 
-	/**
-	 * (Optional) If specified, this callback will be executed after a successful response from server side.
-	 *
-	 * In the callback can also modify the ActionResult
-	 * @param The successful `ActionResult` returned from the server
-	 * @return The `ActionResult` to apply
-	 */
-	export let onResult: ((result: ActionResult) => void) | undefined = undefined;
-
-	/**
-	 * (Optional) If specified, this callback will be executed after a successful response from server side.
-	 *
-	 * In the callback can also modify the ActionResult
-	 * @param The successful `ActionResult` returned from the server
-	 * @return The `ActionResult` to apply
-	 */
-	export let onSuccess: ((result: Extract<ActionResult, { type: 'success' }>) => void) | undefined =
-		undefined;
-
-	/**
-	 * (Optional) If specified, this callback will be executed after a successful response from server side.
-	 *
-	 * In the callback can also modify the ActionResult
-	 * @param The successful `ActionResult` returned from the server
-	 * @return The `ActionResult` to apply
-	 */
-	export let onFailure: ((result: Extract<ActionResult, { type: 'failure' }>) => void) | undefined =
-		undefined;
-
 	export let resetOnSuccess = true;
 	export let customEnhance: SubmitFunction | undefined = undefined;
 
@@ -158,10 +135,11 @@
 		}
 
 		return async ({ result, update }) => {
-			// custom callbacks
-			if (onResult) onResult(result);
-			else if (result.type === 'success' && onSuccess) onSuccess(result);
-			else if (result.type === 'failure' && onFailure) onFailure(result);
+			// dispatch events
+			dispatch('result', result);
+			if (result.type === 'success') dispatch('success', result);
+			if (result.type === 'failure') dispatch('failure', result);
+			if (result.type === 'error') dispatch('error', result);
 
 			if (result.type === 'failure') {
 				// update error context
