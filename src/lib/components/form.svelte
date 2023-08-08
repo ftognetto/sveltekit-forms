@@ -14,6 +14,7 @@
 		success: Extract<ActionResult, { type: 'success' }>;
 		failure: Extract<ActionResult, { type: 'failure' }>;
 		error: Extract<ActionResult, { type: 'error' }>;
+		successAfterUpdate: Extract<ActionResult, { type: 'success' }>;
 	}>();
 
 	/**
@@ -161,6 +162,7 @@
 				// update form
 				await update({ reset: resetOnSuccess });
 			}
+			if (result.type === 'success') dispatch('successAfterUpdate', result);
 			// update loading ui
 			reEnableUI();
 			submitting = false;

@@ -68,6 +68,11 @@ declare const __propDef: {
             status?: number | undefined;
             error: any;
         }>;
+        successAfterUpdate: CustomEvent<{
+            type: "success";
+            status: number;
+            data?: Record<string, any> | undefined;
+        }>;
     } & {
         [evt: string]: CustomEvent<any>;
     };

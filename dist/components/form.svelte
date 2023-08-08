@@ -60,6 +60,8 @@ const _enhance = (event) => {
       errors.set({});
       await update({ reset: resetOnSuccess });
     }
+    if (result.type === "success")
+      dispatch("successAfterUpdate", result);
     reEnableUI();
     submitting = false;
     busy = false;
