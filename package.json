@@ -2,47 +2,8 @@
 	"name": "sveltekit-forms",
 	"version": "1.1.7",
 	"description": "Sveltekit Form Actions Wrapper",
-	"author": "fabriziotognetto <info@quantos.it>",
 	"repository": "github:ftognetto/sveltekit-forms",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build && npm run package",
-		"package": "svelte-kit sync && svelte-package && publint",
-		"prepublishOnly": "npm run package",
-		"test": "playwright test",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"test:unit": "vitest",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"deploy": "npm run build && npm publish"
-	},
-	"peerDependencies": {
-		"@sveltejs/kit": "^1.15.0",
-		"svelte": "^3.58.0"
-	},
-	"devDependencies": {
-		"@playwright/test": "^1.32.2",
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.15.0",
-		"@sveltejs/package": "^2.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.54.1",
-		"@typescript-eslint/parser": "^5.54.1",
-		"eslint": "^8.35.0",
-		"eslint-config-prettier": "^8.7.0",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"form-data": "4.0.0",
-		"prettier": "^2.8.4",
-		"prettier-plugin-svelte": "^2.9.0",
-		"svelte": "^3.58.0",
-		"svelte-check": "^3.1.2",
-		"tslib": "^2.5.0",
-		"typescript": "^4.9.5",
-		"vite": "^4.2.1",
-		"vitest": "^0.29.2",
-		"zod": "^3.21.4",
-		"publint": "^0.1.9"
-	},
+	"author": "fabriziotognetto <info@quantos.it>",
 	"type": "module",
 	"exports": {
 		".": {
@@ -50,11 +11,50 @@
 			"svelte": "./dist/index.js"
 		}
 	},
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts"
+	"scripts": {
+		"build": "vite build && npm run package",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"deploy": "npm run build && npm publish",
+		"dev": "vite dev",
+		"format": "prettier --plugin-search-dir . --write .",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"package": "svelte-kit sync && svelte-package && publint",
+		"prepublishOnly": "npm run package",
+		"test": "playwright test",
+		"test:unit": "vitest"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.32.2",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "",
+		"@sveltejs/package": "^2.2.3",
+		"@typescript-eslint/eslint-plugin": "^6.14.0",
+		"@typescript-eslint/parser": "^6.14.0",
+		"eslint": "^8.55.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.35.1",
+		"form-data": "4.0.0",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"publint": "^0.1.9",
+		"svelte": "",
+		"svelte-check": "^3.6.2",
+		"tslib": "^2.6.2",
+		"typescript": "^5.3.3",
+		"vite": "^4.2.1",
+		"vitest": "^0.29.2",
+		"zod": "^3.21.4"
+	},
+	"peerDependencies": {
+		"@sveltejs/kit": "",
+		"svelte": ""
+	}
 }

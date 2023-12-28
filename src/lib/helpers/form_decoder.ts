@@ -8,7 +8,7 @@ type StructuredFormData =
 	| StructuredFormData[];
 
 export const decodeForm = (formData: FormData): Record<string, any> => {
-	return [...formData.entries()].reduce((data, [key, v]) => {
+	return Array.from(formData).reduce((data, [key, v]) => {
 		if (key === 'submit') {
 			return data;
 		}
@@ -61,7 +61,7 @@ export const decodeFormData = (data: FormData): Record<string, any> => {
 	data.forEach((value, key) => {
 		// Reflect.has in favor of: object.hasOwnProperty(key)
 		if (!Reflect.has(object, key)) {
-			if (value && value.length) {
+			if (value && value.toString().length) {
 				object[key] = value;
 			} else {
 				object[key] = undefined;
